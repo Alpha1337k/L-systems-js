@@ -20,6 +20,24 @@ class Rule {
 	}
 }
 
+class Vector {
+	constructor (x, y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+}
+
+class LinePath {
+	constructor (x1, x2, y1, y2)
+	{
+		this.x1 = x1;
+		this.x2 = x2;
+		this.y1 = y1;
+		this.y2 = y2;
+	}
+}
+
 rgb_set(00,99,00);
 
 function rgb_set(red, green, blue) {
@@ -83,11 +101,14 @@ function ft_find(data){
 	return (false);
 }
 
-function render(data) {
+async function render(data) {
 	ctx.resetTransform();
-	ctx.transform(1, 0, 0, 1, width/ 2, height / 2);
-	let drawlen = 8;
-
+	// ctx.transform(1, 0, 0, 1, width/ 2, height / 2);
+	let drawlen = 10;
+	var pos = [];
+	var upperbound = new Vector(0,0);
+	var lowerbound = new Vector(0,0);
+	
 	let currentX = 0;
 	let currentY = 0;
 	let nextX = 0;
@@ -96,7 +117,7 @@ function render(data) {
 	let dirX;
 	let dirY;
 	let angle = g_start_angle;
-
+	
 	for(let i = 0; i < data.length; i++){
 		if (ft_find(data[i]) == true)
 		{
@@ -108,12 +129,15 @@ function render(data) {
 			nextX = currentX + dirX * drawlen;
 			nextY = currentY + dirY * drawlen;
 
-			ctx.beginPath();
-			ctx.moveTo(currentX,currentY);
-			ctx.lineTo(nextX, nextY);
-			ctx.stroke();
-			
-			rgb_set(width % i, height / i, (i % 200) + 55);
+			if (nextX < upperbound.x)
+				upperbound.x = nextX;
+			if (nextX > lowerbound.x)
+				lowerbound.x = nextX;
+			if (nextY < upperbound.y)
+				upperbound.y = nextY;
+			if (nextY > lowerbound.y)
+				lowerbound.y = nextY;
+			pos.push(new LinePath(currentX, nextX, currentY, nextY));
 			currentX = nextX;
 			currentY = nextY;
 		}
@@ -127,9 +151,23 @@ function render(data) {
 			angle -= g_angle_const;
 			console.log("new angle: " + angle);
 		}
-		else
+		else 
 		{
 			console.log("error" + data[i]);
 		}
+	}
+	console.log("Upperbound = ", upperbound.x, upperbound.y);
+	console.log("Lowerbound = ", lowerbound.x, lowerbound.y);
+	console.log("points = ", pos.length);
+
+	let startX = width / 2 + (upperbound.x + lowerbound.x) / 2;
+	let startY = height / 2 + (upperbound.y + lowerbound.y) / 2;
+	console.log("startXY = ", startX, startY);
+	console.log("draw multiplier = ", drawlen);
+	for(let i = 0; i < pos.length; i++)
+	{
+		ctx.moveTo(startX - pos[i].x1, startY - pos[i].y1);
+		ctx.lineTo(startX - pos[i].x2, startY - pos[i].y2);
+		ctx.stroke();
 	}
 }
