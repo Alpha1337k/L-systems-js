@@ -73,8 +73,12 @@ function start() {
 	console.log(g_variables + "\n" + g_rules + "\n" +  g_start + "\n" +  g_constants + "\n" + g_depth);
 	let data = calculate(g_depth, g_start);
 	console.log(data);
-	render(data);
+	render_recurse(data, 0, 0, g_start_angle);
 
+	ctx.resetTransform();
+	ctx.imageSmoothingEnabled= true;
+	draw(pos);
+	pos = [];
 }
 
 function update_data() {
@@ -101,42 +105,42 @@ function ft_find(data){
 	return (false);
 }
 
-async function render(data) {
-	ctx.resetTransform();
-	// ctx.transform(1, 0, 0, 1, width/ 2, height / 2);
-	let drawlen = 10;
-	var pos = [];
-	var upperbound = new Vector(0,0);
-	var lowerbound = new Vector(0,0);
-	
-	let currentX = 0;
-	let currentY = 0;
-	let nextX = 0;
-	let nextY = 0;
+function ft_find_depth(data, i = 0){
 
+	let depth = 0;
+	for(; i < data.length; i++){
+		if (depth == 0 && data[i] == ']')
+			return (i);
+		else if (data[i] == ']')
+			depth--;
+		else if (data[i] == '[')
+			depth++;
+	}
+	return (-1);
+}
+
+var pos = [];
+
+async function render_recurse(data, currentX, currentY, angle)
+{
+	let drawlen = 10;
 	let dirX;
 	let dirY;
-	let angle = g_start_angle;
-	
+	let nextX = 0;
+	let nextY = 0;
+	console.log(data);
+
 	for(let i = 0; i < data.length; i++){
 		if (ft_find(data[i]) == true)
 		{
 			dirX = Math.sin(angle * 0.0174532925);
 			dirY = Math.cos(angle * 0.0174532925);
-			console.log("new direction:" + dirX + ", " + dirY);
-			console.log("Current position:" + currentX + ", " + currentY);
-
+			console.log("R | new direction:" + dirX + ", " + dirY + "[" + angle + "]");
+			
 			nextX = currentX + dirX * drawlen;
 			nextY = currentY + dirY * drawlen;
-
-			if (nextX < upperbound.x)
-				upperbound.x = nextX;
-			if (nextX > lowerbound.x)
-				lowerbound.x = nextX;
-			if (nextY < upperbound.y)
-				upperbound.y = nextY;
-			if (nextY > lowerbound.y)
-				lowerbound.y = nextY;
+			
+			console.log("R | New Line!:" + currentX + ", " + currentY + " to " + nextX + ", " + nextY);
 			pos.push(new LinePath(currentX, nextX, currentY, nextY));
 			currentX = nextX;
 			currentY = nextY;
@@ -151,23 +155,54 @@ async function render(data) {
 			angle -= g_angle_const;
 			console.log("new angle: " + angle);
 		}
+		else if (data[i] == '[')
+		{
+			render_recurse(data.substring(i + 1, ft_find_depth(data, i + 1)), currentX, currentY, angle - g_angle_const);
+			console.log("remainder: " + data.substring(ft_find_depth(data, i + 1) - 2));
+			i = ft_find_depth(data, i + 1) - 1;
+		}
+		else if (data[i] == ']')
+		{
+			angle += g_angle_const;
+			console.log("R | new angle: " + angle);
+		}
 		else 
 		{
 			console.log("error" + data[i]);
-		}
+		}		
 	}
+}
+
+function draw(pos) {
+	var upperbound = new Vector(0,0);
+	var lowerbound = new Vector(0,0);
+
 	console.log("Upperbound = ", upperbound.x, upperbound.y);
 	console.log("Lowerbound = ", lowerbound.x, lowerbound.y);
-	console.log("points = ", pos.length);
+	console.log("lines = ", pos.length);
 
+	for (let i = 0; i < pos.length; i++)
+	{
+		if (pos[i].x2 < upperbound.x)
+			upperbound.x = pos[i].x2;
+		else if (pos[i].x2 > lowerbound.x)
+			lowerbound.x = pos[i].x2;
+		else if (pos[i].y2 < upperbound.y)
+			upperbound.y = pos[i].y2;
+		else if (pos[i].y2 > lowerbound.y)
+			lowerbound.y = pos[i].y2;
+	}
 	let startX = width / 2 + (upperbound.x + lowerbound.x) / 2;
 	let startY = height / 2 + (upperbound.y + lowerbound.y) / 2;
 	console.log("startXY = ", startX, startY);
-	console.log("draw multiplier = ", drawlen);
+	ctx.globalAlpha = 1;
+	ctx.lineWidth = 2;
+	ctx.beginPath();
 	for(let i = 0; i < pos.length; i++)
 	{
 		ctx.moveTo(startX - pos[i].x1, startY - pos[i].y1);
 		ctx.lineTo(startX - pos[i].x2, startY - pos[i].y2);
 		ctx.stroke();
 	}
+	ctx.closePath();
 }
