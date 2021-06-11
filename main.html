@@ -8,7 +8,7 @@
 
 	<title>Lsystem</title>
 </head>
-<body>	
+<body>
 	</canvas>
 	<div id="choose-menu">
 		<input type="radio" id="kocchie" name="rad" value="kocchie" onclick="update_form()" checked>
@@ -27,7 +27,7 @@
 		<p>Start</p>
 		<input type="text" id="start" onchange="update_data();" value="F">
 		<p>Rules</p>
-		<input type="text" id="rules" onchange="update_data();" value="F->F+F−F−F+F">
+		<input type="text" id="rules" onchange="update_data();" value="F->F+F-F-F+F">
 		<p>Depth</p>
 		<input type="text" id="depth" onchange="update_data();" value="4">
 		<p>Starting Rotation</p>
@@ -37,7 +37,7 @@
 	</div>
 	<br>
 	<canvas id="cv" width="1500" height="1500" style="border:1px solid #000000; background-color: #000000;"  onclick="start()">
-	
+
 	<script src="main.js"></script>
 </body>
 </html>

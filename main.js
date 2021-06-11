@@ -45,7 +45,7 @@ function calculate(depth, data)
 		if (x == g_rules.length)
 			newstr += data[i];
 	}
-	
+
 	return (calculate(depth - 1, newstr));
 }
 
@@ -87,7 +87,7 @@ function render(data) {
 	ctx.resetTransform();
 	ctx.transform(1, 0, 0, 1, width/ 2, height / 2);
 	let drawlen = 8;
-	
+
 	let currentX = 0;
 	let currentY = 0;
 	let nextX = 0;
@@ -96,7 +96,7 @@ function render(data) {
 	let dirX;
 	let dirY;
 	let angle = g_start_angle;
-	
+
 	for(let i = 0; i < data.length; i++){
 		if (ft_find(data[i]) == true)
 		{
@@ -112,12 +112,12 @@ function render(data) {
 			ctx.moveTo(currentX,currentY);
 			ctx.lineTo(nextX, nextY);
 			ctx.stroke();
-			//rgb_set((i % 200) + 55, (currentX % 200) + 55, (currentY % 200) + 55);
+			
 			rgb_set(width % i, height / i, (i % 200) + 55);
 			currentX = nextX;
 			currentY = nextY;
 		}
-		else if (data[i] == "−")
+		else if (data[i] == "-")
 		{
 			angle += g_angle_const;
 			console.log("new angle: " + angle);
@@ -127,10 +127,9 @@ function render(data) {
 			angle -= g_angle_const;
 			console.log("new angle: " + angle);
 		}
-		else 
+		else
 		{
 			console.log("error" + data[i]);
 		}
 	}
 }
-
