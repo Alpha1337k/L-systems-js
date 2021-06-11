@@ -10,4 +10,4 @@ The examples used can be found [here](https://en.m.wikipedia.org/wiki/L-system)
 
 
 ## Collab with
-* [Milo broerse](https://github.com/milobroerse)
+* [Milo Broerse](https://github.com/milobroerse)
