@@ -36,8 +36,8 @@ function update_form() {
 	else if (type == "sierpinski")
 	{
 		document.getElementById("variables").value = "FG";
-		document.getElementById("constants").value = "+−";
-		document.getElementById("start").value = "F−G−G";
+		document.getElementById("constants").value = "+-";
+		document.getElementById("start").value = "F-G-G";
 		document.getElementById("rules").value = "F->F-G+F+G-F,G->GG";
 		document.getElementById("depth").value = "2";
 		document.getElementById("start_rot").value = "180";
