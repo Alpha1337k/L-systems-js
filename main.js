@@ -177,32 +177,43 @@ function draw(pos) {
 	var upperbound = new Vector(0,0);
 	var lowerbound = new Vector(0,0);
 
-	console.log("Upperbound = ", upperbound.x, upperbound.y);
-	console.log("Lowerbound = ", lowerbound.x, lowerbound.y);
 	console.log("lines = ", pos.length);
-
+	
 	for (let i = 0; i < pos.length; i++)
 	{
 		if (pos[i].x2 < upperbound.x)
-			upperbound.x = pos[i].x2;
+		upperbound.x = pos[i].x2;
 		else if (pos[i].x2 > lowerbound.x)
-			lowerbound.x = pos[i].x2;
+		lowerbound.x = pos[i].x2;
 		else if (pos[i].y2 < upperbound.y)
-			upperbound.y = pos[i].y2;
+		upperbound.y = pos[i].y2;
 		else if (pos[i].y2 > lowerbound.y)
-			lowerbound.y = pos[i].y2;
+		lowerbound.y = pos[i].y2;
 	}
-	let startX = width / 2 + (upperbound.x + lowerbound.x) / 2;
-	let startY = height / 2 + (upperbound.y + lowerbound.y) / 2;
+	console.log("Upperbound = ", upperbound.x, upperbound.y);
+	console.log("Lowerbound = ", lowerbound.x, lowerbound.y);
+	let rescale = 1;
+	if (document.getElementById("need_scale").checked)
+	{
+		if (lowerbound.x - upperbound.x > lowerbound.y - upperbound.y)
+			rescale = (lowerbound.x - upperbound.x) / width / 0.9;
+		else
+			rescale = (lowerbound.y - upperbound.y) / height / 0.9;
+	}
+
+
+	let startX = width / 2 + (upperbound.x + lowerbound.x) / 2 / rescale;
+	let startY = height / 2 + (upperbound.y + lowerbound.y) / 2 / rescale;
 	console.log("startXY = ", startX, startY);
+	console.log("rescale = ", rescale);
 	ctx.globalAlpha = 1;
 	ctx.lineWidth = 2;
 	ctx.beginPath();
 	for(let i = 0; i < pos.length; i++)
 	{
-		ctx.moveTo(startX - pos[i].x1, startY - pos[i].y1);
-		ctx.lineTo(startX - pos[i].x2, startY - pos[i].y2);
-		ctx.stroke();
+		ctx.moveTo(startX - (pos[i].x1 / rescale), startY - (pos[i].y1 / rescale));
+		ctx.lineTo(startX - (pos[i].x2 / rescale), startY - (pos[i].y2 / rescale));
 	}
+	ctx.stroke();
 	ctx.closePath();
 }
