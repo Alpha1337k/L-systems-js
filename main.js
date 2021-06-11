@@ -11,6 +11,8 @@ let g_depth;
 let g_angle_const;
 let g_start_angle;
 
+var pos = [];
+
 class Rule {
 	constructor (text)
 	{
@@ -77,7 +79,7 @@ function start() {
 
 	ctx.resetTransform();
 	ctx.imageSmoothingEnabled= true;
-	draw(pos);
+	draw();
 	pos = [];
 }
 
@@ -95,6 +97,8 @@ function update_data() {
 		g_rules.push(new Rule(tmp[i]));
 	}
 	g_depth = document.getElementById("depth").value;
+
+	document.getElementById("exporttext").innerHTML = "";
 }
 function ft_find(data){
 
@@ -118,8 +122,6 @@ function ft_find_depth(data, i = 0){
 	}
 	return (-1);
 }
-
-var pos = [];
 
 async function render_recurse(data, currentX, currentY, angle)
 {
@@ -173,7 +175,7 @@ async function render_recurse(data, currentX, currentY, angle)
 	}
 }
 
-function draw(pos) {
+async function draw() {
 	var upperbound = new Vector(0,0);
 	var lowerbound = new Vector(0,0);
 

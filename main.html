@@ -20,9 +20,15 @@
 			<label for="sierpinski">Sierpinski triangle</label>
 			<input type="radio" id="bintree" name="rad" value="bintree" onclick="update_form()">
 			<label for="bintree">Binary fractal tree</label>
+			<input type="radio" id="import" name="rad" value="import" onclick="update_form()">
+			<label for="import">Import</label>
+			<div id="importform" style="display: none;">
+				<input type="text" id="importformtext" placeholder="enter JSON"> <button onclick="load_import()">import</button>
+			</div>
 		</div>
 		
 		<div id="inputform">
+			<hr>
 			<p>Variables</p>
 			<input type="text" id="variables" onchange="update_data();" value="F">
 			<p>Constants</p>
