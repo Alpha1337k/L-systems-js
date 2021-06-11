@@ -40,12 +40,6 @@ class LinePath {
 	}
 }
 
-rgb_set(00,99,00);
-
-function rgb_set(red, green, blue) {
-	ctx.strokeStyle = 'rgb(' + red + ',' + green + ', ' + blue + ')';
-}
-
 function calculate(depth, data)
 {
 	if(depth == 0)
@@ -138,10 +132,10 @@ async function render_recurse(data, currentX, currentY, angle)
 			dirX = Math.sin(angle * 0.0174532925);
 			dirY = Math.cos(angle * 0.0174532925);
 			console.log("R | new direction:" + dirX + ", " + dirY + "[" + angle + "]");
-			
+
 			nextX = currentX + dirX * drawlen;
 			nextY = currentY + dirY * drawlen;
-			
+
 			console.log("R | New Line!:" + currentX + ", " + currentY + " to " + nextX + ", " + nextY);
 			pos.push(new LinePath(currentX, nextX, currentY, nextY));
 			currentX = nextX;
@@ -168,10 +162,10 @@ async function render_recurse(data, currentX, currentY, angle)
 			angle += g_angle_const;
 			console.log("R | new angle: " + angle);
 		}
-		else 
+		else
 		{
 			console.log("error" + data[i]);
-		}		
+		}
 	}
 }
 
@@ -180,7 +174,7 @@ async function draw() {
 	var lowerbound = new Vector(0,0);
 
 	console.log("lines = ", pos.length);
-	
+
 	for (let i = 0; i < pos.length; i++)
 	{
 		if (pos[i].x2 < upperbound.x)
@@ -208,14 +202,15 @@ async function draw() {
 	let startY = height / 2 + (upperbound.y + lowerbound.y) / 2 / rescale;
 	console.log("startXY = ", startX, startY);
 	console.log("rescale = ", rescale);
-	ctx.globalAlpha = 1;
+
 	ctx.lineWidth = 2;
-	ctx.beginPath();
 	for(let i = 0; i < pos.length; i++)
 	{
+		setColor();
+		ctx.beginPath();
 		ctx.moveTo(startX - (pos[i].x1 / rescale), startY - (pos[i].y1 / rescale));
 		ctx.lineTo(startX - (pos[i].x2 / rescale), startY - (pos[i].y2 / rescale));
+		ctx.stroke();
+		ctx.closePath();
 	}
-	ctx.stroke();
-	ctx.closePath();
 }

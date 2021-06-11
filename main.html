@@ -26,7 +26,7 @@
 				<input type="text" id="importformtext" placeholder="enter JSON"> <button onclick="load_import()">import</button>
 			</div>
 		</div>
-		
+
 		<div id="inputform">
 			<hr>
 			<p>Variables</p>
@@ -54,6 +54,14 @@
 			<p id="exporttext" style="background-color: lightgray"></p>
 
 		</div>
+		<label for="colors">Choose a colorscheme:</label>
+		<select id="colors" name="colors">
+			<option value="" selected></option>
+			<option value="random">Random</option>
+			<option value="red">Red</option>
+			<option value="green">Green</option>
+			<option value="blue">Blue</option>
+	  </select>
 	</div>
 	<br>
 	<div>
