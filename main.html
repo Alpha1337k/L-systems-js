@@ -47,11 +47,12 @@
 			<br>
 			<button onclick="clearcanvas()">Clear</button>
 			<button onclick="start()">Render</button>
-			<input type="checkbox" id="need_scale" name="scalecheck">
+			<input type="checkbox" id="need_scale" name="scalecheck" checked>
 			<label for="scalecheck">Scale</label>
 			<br><br>
 			<button onclick="save_as_json()">Save config</button>
 			<p id="exporttext" style="background-color: lightgray"></p>
+			<button onclick="download_image()">Save image</button><input type="number" placeholder="5000" value="5000" id="save_size">
 
 		</div>
 	</div>

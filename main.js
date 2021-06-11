@@ -79,8 +79,7 @@ function start() {
 
 	ctx.resetTransform();
 	ctx.imageSmoothingEnabled= true;
-	draw();
-	pos = [];
+	draw(ctx, width, height);
 }
 
 function update_data() {
@@ -175,7 +174,7 @@ async function render_recurse(data, currentX, currentY, angle)
 	}
 }
 
-async function draw() {
+async function draw(context, w, h) {
 	var upperbound = new Vector(0,0);
 	var lowerbound = new Vector(0,0);
 
@@ -198,24 +197,23 @@ async function draw() {
 	if (document.getElementById("need_scale").checked)
 	{
 		if (lowerbound.x - upperbound.x > lowerbound.y - upperbound.y)
-			rescale = (lowerbound.x - upperbound.x) / width / 0.9;
+			rescale = (lowerbound.x - upperbound.x) / w / 0.9;
 		else
-			rescale = (lowerbound.y - upperbound.y) / height / 0.9;
+			rescale = (lowerbound.y - upperbound.y) / h / 0.9;
 	}
 
-
-	let startX = width / 2 + (upperbound.x + lowerbound.x) / 2 / rescale;
-	let startY = height / 2 + (upperbound.y + lowerbound.y) / 2 / rescale;
+	let startX = w / 2 + (upperbound.x + lowerbound.x) / 2 / rescale;
+	let startY = h / 2 + (upperbound.y + lowerbound.y) / 2 / rescale;
 	console.log("startXY = ", startX, startY);
 	console.log("rescale = ", rescale);
-	ctx.globalAlpha = 1;
-	ctx.lineWidth = 2;
-	ctx.beginPath();
+	context.globalAlpha = 1;
+	context.lineWidth = 2;
+	context.beginPath();
 	for(let i = 0; i < pos.length; i++)
 	{
-		ctx.moveTo(startX - (pos[i].x1 / rescale), startY - (pos[i].y1 / rescale));
-		ctx.lineTo(startX - (pos[i].x2 / rescale), startY - (pos[i].y2 / rescale));
+		context.moveTo(startX - (pos[i].x1 / rescale), startY - (pos[i].y1 / rescale));
+		context.lineTo(startX - (pos[i].x2 / rescale), startY - (pos[i].y2 / rescale));
 	}
-	ctx.stroke();
-	ctx.closePath();
+	context.stroke();
+	context.closePath();
 }
