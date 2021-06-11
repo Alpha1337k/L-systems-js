@@ -43,4 +43,14 @@ function update_form() {
 		document.getElementById("start_rot").value = "180";
 		document.getElementById("const_rot").value = "120";
 	}
+	else if ("bintree")
+	{
+		document.getElementById("variables").value = "01";
+		document.getElementById("constants").value = "[]";
+		document.getElementById("start").value = "0";
+		document.getElementById("rules").value = "1->11,0->1[0]0";
+		document.getElementById("depth").value = "2";
+		document.getElementById("start_rot").value = "0";
+		document.getElementById("const_rot").value = "45";
+	}
 }
