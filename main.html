@@ -8,40 +8,43 @@
 	<title>Lsystem</title>
 </head>
 <body>
-	</canvas>
-	<div id="mainbody" style="display:flex; justify-content: space-around;">
+</canvas>
+<div id="mainbody" style="display:flex; justify-content: space-around;">
 	<div>
-	<div id="choose-menu">
-		<input type="radio" id="kocchie" name="rad" value="kocchie" onclick="update_form()" checked>
-		<label for="kocchie">Koch curve</label>
-		<input type="radio" id="dragon" name="rad" value="dragon" onclick="update_form()">
-		<label for="Dragon">Dragon curve</label>
-		<input type="radio" id="sierpinski" name="rad" value="sierpinski" onclick="update_form()">
-		<label for="sierpinski">Sierpinski triangle</label>
-	</div>
-
-	<div id="inputform">
-		<p>Variables</p>
-		<input type="text" id="variables" onchange="update_data();" value="F">
-		<p>Constants</p>
-		<input type="text" id="constants" onchange="update_data();" value="+-">
-		<p>Start</p>
-		<input type="text" id="start" onchange="update_data();" value="F">
-		<p>Rules</p>
-		<input type="text" id="rules" onchange="update_data();" value="F->F+F-F-F+F">
-		<p>Depth</p>
-		<input type="text" id="depth" onchange="update_data();" value="4">
-		<p>Starting Rotation</p>
-		<input type="text" id="start_rot" onchange="update_data();" value="90">
-		<p>Rotation per const</p>
-		<input type="text" id="const_rot" onchange="update_data();" value="90">
-	</div>
+		<div id="choose-menu">
+			<input type="radio" id="kocchie" name="rad" value="kocchie" onclick="update_form()" checked>
+			<label for="kocchie">Koch curve</label>
+			<input type="radio" id="dragon" name="rad" value="dragon" onclick="update_form()">
+			<label for="Dragon">Dragon curve</label>
+			<input type="radio" id="sierpinski" name="rad" value="sierpinski" onclick="update_form()">
+			<label for="sierpinski">Sierpinski triangle</label>
+		</div>
+		
+		<div id="inputform">
+			<p>Variables</p>
+			<input type="text" id="variables" onchange="update_data();" value="F">
+			<p>Constants</p>
+			<input type="text" id="constants" onchange="update_data();" value="+-">
+			<p>Start</p>
+			<input type="text" id="start" onchange="update_data();" value="F">
+			<p>Rules</p>
+			<input type="text" id="rules" onchange="update_data();" value="F->F+F-F-F+F">
+			<p>Depth</p>
+			<input type="text" id="depth" onchange="update_data();" value="4">
+			<p>Starting Rotation</p>
+			<input type="text" id="start_rot" onchange="update_data();" value="90">
+			<p>Rotation per const</p>
+			<input type="text" id="const_rot" onchange="update_data();" value="90">
+			<br>
+			<button onclick="clearcanvas()">Clear</button>
+		</div>
 	</div>
 	<br>
 	<div>
 		<canvas id="cv" width="1000" height="1000" style="border:1px solid #000000; background-color: #000000;"  onclick="start()">
-	</div>
+		</div>
 	</div>
 	<script src="main.js"></script>
+	<script src="helpers.js"></script>
 </body>
 </html>
