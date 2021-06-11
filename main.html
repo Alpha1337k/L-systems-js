@@ -5,11 +5,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="style.js"></script>
-
 	<title>Lsystem</title>
 </head>
 <body>
 	</canvas>
+	<div id="mainbody" style="display:flex; justify-content: space-between;">
+	<div>
 	<div id="choose-menu">
 		<input type="radio" id="kocchie" name="rad" value="kocchie" onclick="update_form()" checked>
 		<label for="kocchie">Koch curve</label>
@@ -35,9 +36,12 @@
 		<p>Rotation per const</p>
 		<input type="text" id="const_rot" onchange="update_data();" value="90">
 	</div>
+	</div>
 	<br>
-	<canvas id="cv" width="1500" height="1500" style="border:1px solid #000000; background-color: #000000;"  onclick="start()">
-
+	<div>
+		<canvas id="cv" width="1400" height="1000" style="border:1px solid #000000; background-color: #000000;"  onclick="start()">
+	</div>
+	</div>
 	<script src="main.js"></script>
 </body>
 </html>
