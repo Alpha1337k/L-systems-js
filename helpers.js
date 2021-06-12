@@ -3,7 +3,8 @@ function clearcanvas() {
 	let ctx = c.getContext("2d");
 	ctx.clearRect(0, 0, c.width, c.height);
 	ctx.beginPath();
-	path = [];
+	document.getElementById("mySVG").innerHTML = "";
+	pos = [];
 	console.log("cleared");
 }
 
@@ -55,19 +56,33 @@ function downloadImage(data, filename = 'untitled.jpeg') {
 }
 
 function download_image() {
-	var canvas = document.createElement('canvas');
-	var context = canvas.getContext("2d");
-	canvas.style.display='block';
-	var height=document.getElementById('save_size').value;
-	var width=height;
+	if (g_engine_type == "render_canvas")
+	{
+		var canvas = document.createElement('canvas');
+		var context = canvas.getContext("2d");
+		canvas.style.display='block';
+		var height=document.getElementById('save_size').value;
+		var width=height;
 
-	canvas.height=height;
-	canvas.width=width;
+		canvas.height=height;
+		canvas.width=width;
 
-	console.log(canvas);
-	draw(context, width, height);
-	var img = canvas.toDataURL("image/png", 1).replace("image/png", "image/octet-stream");
-	downloadImage(img, "download.png");
+		console.log(canvas);
+		draw(context, width, height);
+		var img = canvas.toDataURL("image/png", 1).replace("image/png", "image/octet-stream");
+		downloadImage(img, "download.png");
+	}
+	else if (g_engine_type == "render_svg")
+	{
+		var svgBlob = new Blob([document.getElementById("mySVG").outerHTML], {type:"image/svg+xml;charset=utf-8"});
+		var svgUrl = URL.createObjectURL(svgBlob);
+		var downloadLink = document.createElement("a");
+		downloadLink.href = svgUrl;
+		downloadLink.download = "lsystem.svg";
+		document.body.appendChild(downloadLink);
+		downloadLink.click();
+		document.body.removeChild(downloadLink);
+	}
 }
 
 var g_engine_type = "render_canvas";

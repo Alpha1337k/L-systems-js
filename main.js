@@ -11,7 +11,7 @@ let g_depth;
 let g_angle_const;
 let g_start_angle;
 
-var pos = [];
+let pos = [];
 
 class Rule {
 	constructor (text)
