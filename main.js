@@ -73,7 +73,10 @@ function start() {
 
 	ctx.resetTransform();
 	ctx.imageSmoothingEnabled= true;
-	draw(ctx, width, height);
+	if (g_engine_type == "render_canvas")
+		draw(ctx, width, height);
+	else if (g_engine_type == "render_svg")
+		draw_svg(width, height);
 }
 
 function update_data() {

@@ -63,13 +63,23 @@
 			<option value="green">Green</option>
 			<option value="blue">Blue</option>
 	  </select>
+	  <p>Rendering engine</p>
+	  <input type="radio" id="render_canvas" name="engine_choose" value="render_canvas" onclick="update_renderer()" checked>
+	  <label for="render_canvas">Canvas</label>
+	  <input type="radio" id="render_svg" name="engine_choose" value="render_svg" onclick="update_renderer()">
+	  <label for="render_svg">SVG</label>
 	</div>
 	<br>
-	<div>
+	<div id="canvas_div">
 		<canvas id="cv" width="1000" height="1000" style="border:1px solid #000000; background-color: #000000;"  onclick="start()">
-		</div>
 	</div>
+	<div id="svg_div" style="display: none;">
+		<svg id="mySVG" width="1000" height="1000" style="border:1px solid #000000; background-color: #333;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+	</svg>
+	</div>
+</div>
 	<script src="main.js"></script>
 	<script src="helpers.js"></script>
+	<script src="svg.js"></script>
 </body>
 </html>

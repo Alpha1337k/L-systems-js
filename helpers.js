@@ -3,6 +3,7 @@ function clearcanvas() {
 	let ctx = c.getContext("2d");
 	ctx.clearRect(0, 0, c.width, c.height);
 	ctx.beginPath();
+	path = [];
 	console.log("cleared");
 }
 
@@ -67,4 +68,29 @@ function download_image() {
 	draw(context, width, height);
 	var img = canvas.toDataURL("image/png", 1).replace("image/png", "image/octet-stream");
 	downloadImage(img, "download.png");
+}
+
+var g_engine_type = "render_canvas";
+
+
+function update_renderer() {
+	var idx = document.getElementsByName("engine_choose");
+	for (var x = 0; x < idx.length; x++)
+	{
+		if (idx[x].checked)
+		{
+			g_engine_type = idx[x].value;
+			break;
+		}
+	}
+	if (g_engine_type == "render_canvas")
+	{
+		document.getElementById("svg_div").style.display='none';
+		document.getElementById("canvas_div").style.display='block';
+	}
+	else if (g_engine_type =="render_svg")
+	{
+		document.getElementById("svg_div").style.display='block';
+		document.getElementById("canvas_div").style.display='none';
+	}
 }
