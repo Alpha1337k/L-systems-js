@@ -20,6 +20,8 @@
 			<label for="sierpinski">Sierpinski triangle</label>
 			<input type="radio" id="bintree" name="rad" value="bintree" onclick="update_form()">
 			<label for="bintree">Binary fractal tree</label>
+			<input type="radio" id="fractalplant" name="rad" value="fractalplant" onclick="update_form()">
+			<label for="normal">Fractal plant</label>
 			<input type="radio" id="import" name="rad" value="import" onclick="update_form()">
 			<label for="import">Import</label>
 			<div id="importform" style="display: none;">
@@ -33,6 +35,8 @@
 			<input type="text" id="variables" onchange="update_data();" value="F">
 			<p>Constants</p>
 			<input type="text" id="constants" onchange="update_data();" value="+-">
+			<br><input type="checkbox" id="bracket_angle_change" name="scalecheck" checked>
+			<label for="bracket_angle_change">Brackets change angle</label>
 			<p>Start</p>
 			<input type="text" id="start" onchange="update_data();" value="F">
 			<p>Rules</p>
@@ -43,6 +47,7 @@
 			<input type="text" id="start_rot" onchange="update_data();" value="90">
 			<p>Rotation per const</p>
 			<input type="text" id="const_rot" onchange="update_data();" value="90">
+
 			<br>
 			<br>
 			<button onclick="clearcanvas()">Clear</button>
@@ -74,7 +79,7 @@
 		<canvas id="cv" width="1000" height="1000" style="border:1px solid #000000; background-color: #000000;"  onclick="start()">
 	</div>
 	<div id="svg_div" style="display: none;">
-		<svg id="mySVG" width="1000" height="1000" style="border:1px solid #000000; background-color: #333;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+		<svg id="mySVG" width="1000" height="1000" style="border:1px solid #000000; background-color: #000000;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
 	</svg>
 	</div>
 </div>

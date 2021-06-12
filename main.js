@@ -9,6 +9,7 @@ let g_start;
 let g_rules = [];
 let g_depth;
 let g_angle_const;
+let g_bracket_angle = false;
 let g_start_angle;
 
 let pos = [];
@@ -85,6 +86,7 @@ function update_data() {
 	g_start = document.getElementById("start").value;
 	g_angle_const = parseInt(document.getElementById("const_rot").value);
 	g_start_angle = parseInt(document.getElementById("start_rot").value);
+	g_bracket_angle = document.getElementById("bracket_angle_change").checked;
 	let tmp = document.getElementById("rules").value;
 	tmp = tmp.split(',');
 	g_rules = [];
@@ -155,13 +157,14 @@ async function render_recurse(data, currentX, currentY, angle)
 		}
 		else if (data[i] == '[')
 		{
-			render_recurse(data.substring(i + 1, ft_find_depth(data, i + 1)), currentX, currentY, angle - g_angle_const);
+			render_recurse(data.substring(i + 1, ft_find_depth(data, i + 1)), currentX, currentY, 
+						angle - (g_bracket_angle ? g_angle_const : 0));
 			console.log("remainder: " + data.substring(ft_find_depth(data, i + 1) - 2));
 			i = ft_find_depth(data, i + 1) - 1;
 		}
 		else if (data[i] == ']')
 		{
-			angle += g_angle_const;
+			angle += (g_bracket_angle ? g_angle_const : 0);
 			console.log("R | new angle: " + angle);
 		}
 		else
