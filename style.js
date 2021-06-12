@@ -53,6 +53,16 @@ function update_form() {
 		document.getElementById("start_rot").value = "0";
 		document.getElementById("const_rot").value = "45";
 	}
+	else if (type == "fractalplant")
+	{
+		document.getElementById("variables").value = "F";
+		document.getElementById("constants").value = "+-[]";
+		document.getElementById("start").value = "X";
+		document.getElementById("rules").value = "X->F+[[X]-X]-F[-FX]+X,F->FF";
+		document.getElementById("depth").value = "6";
+		document.getElementById("start_rot").value = "20";
+		document.getElementById("const_rot").value = "25";
+	}
 	else if (type == "import")
 	{
 		document.getElementById("importform").style.display = "block";
