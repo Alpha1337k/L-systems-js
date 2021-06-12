@@ -10,8 +10,6 @@ function update_form() {
 			break;
 		}
 	}
-
-	console.log("je moeder " + type);
 	if (type == "kocchie")
 	{
 		document.getElementById("variables").value = "F";
@@ -21,6 +19,7 @@ function update_form() {
 		document.getElementById("depth").value = "4";
 		document.getElementById("start_rot").value = "90";
 		document.getElementById("const_rot").value = "90";
+		document.getElementById("bracket_angle_change").checked = false;
 	}
 	else if (type == "dragon")
 	{
@@ -31,7 +30,7 @@ function update_form() {
 		document.getElementById("depth").value = "10";
 		document.getElementById("start_rot").value = "180";
 		document.getElementById("const_rot").value = "90";
-
+		document.getElementById("bracket_angle_change").checked = false;
 	}
 	else if (type == "sierpinski")
 	{
@@ -42,6 +41,7 @@ function update_form() {
 		document.getElementById("depth").value = "4";
 		document.getElementById("start_rot").value = "180";
 		document.getElementById("const_rot").value = "120";
+		document.getElementById("bracket_angle_change").checked = false;
 	}
 	else if (type == "bintree")
 	{
@@ -52,6 +52,7 @@ function update_form() {
 		document.getElementById("depth").value = "2";
 		document.getElementById("start_rot").value = "0";
 		document.getElementById("const_rot").value = "45";
+		document.getElementById("bracket_angle_change").checked = true;
 	}
 	else if (type == "fractalplant")
 	{
@@ -62,6 +63,7 @@ function update_form() {
 		document.getElementById("depth").value = "6";
 		document.getElementById("start_rot").value = "20";
 		document.getElementById("const_rot").value = "25";
+		document.getElementById("bracket_angle_change").checked = false;
 	}
 	else if (type == "import")
 	{
@@ -79,6 +81,7 @@ function load_import() {
 	document.getElementById("start_rot").value = parsed_data.angle_start;
 	document.getElementById("const_rot").value = parsed_data.angle_const;
 	document.getElementById("need_scale").checked = parsed_data.scale;
+	document.getElementById("bracket_angle_change").checked = parsed_data.bracket_change;
 
 	let finalstring = "";
 	for (let i = 0; i < parsed_data.rules.length; i++)

@@ -18,7 +18,8 @@ function save_as_json() {
 		"angle_start"	: g_start_angle,
 		"rules"			: g_rules,
 		"depth"			: g_depth,
-		"scale"			: document.getElementById("need_scale").checked
+		"scale"			: document.getElementById("need_scale").checked,
+		"bracket_change": document.getElementById("bracket_angle_change").checked
 	};
 	document.getElementById("exporttext").innerHTML = JSON.stringify(savedata);
 }
